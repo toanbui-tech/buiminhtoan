@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toan — Software Engineer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        :root {
+            --bg: #FAFAF8;
+            --text-primary: #1A1A1A;
+            --text-secondary: #5A5A5A;
+            --text-light: #8B8B8B;
+            --border: #E5E5E5;
+            --accent: #1A1A1A;
+            --bg-light: #F5F5F3;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            font-size: 15px;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Utilities */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Header & Navigation */
+        header {
+            padding: 2rem 0;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            background-color: rgba(250, 250, 248, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        nav a:hover {
+            color: var(--text-primary);
+        }
+
+        nav a.active {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 6rem 2rem 4rem;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 6vw, 3.5rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.15;
+            letter-spacing: -1px;
+        }
+
+        .hero .tagline {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            font-weight: 400;
+            line-height: 1.7;
+        }
+
+        .hero .subtitle {
+            color: var(--text-light);
+            font-size: 14px;
+            margin-bottom: 2rem;
+        }
+
+        /* About Section */
+        .about {
+            padding: 4rem 2rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .about .container {
+            max-width: 800px;
+        }
+
+        .about h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            letter-spacing: -0.5px;
+        }
+
+        .about-text {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            font-weight: 400;
+        }
+
+        .about-text p {
+            margin: 0;
+        }
+
+        .accent-text {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        /* Products / Projects Section */
+        .products {
+            padding: 4rem 2rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .products h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 3rem;
+            letter-spacing: -0.5px;
+        }
+
+        .product-list {
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+        }
+
+        .product-item {
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border);
+            transition: opacity 0.3s ease;
+        }
+
+        .product-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .product-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+            gap: 2rem;
+        }
+
+        .product-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            font-weight: 600;
+            letter-spacing: -0.3px;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-year {
+            font-size: 13px;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        .product-description {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            font-weight: 400;
+        }
+
+        .product-features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .feature-dot {
+            width: 4px;
+            height: 4px;
+            background: var(--text-secondary);
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .product-links {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .link {
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            color: var(--text-primary);
+            border-bottom: 1.5px solid var(--text-primary);
+            padding-bottom: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .link:hover {
+            color: var(--text-light);
+            border-bottom-color: var(--text-light);
+        }
+
+        .link-secondary {
+            color: var(--text-secondary);
+            border-bottom-color: var(--text-secondary);
+        }
+
+        .link-secondary:hover {
+            color: var(--text-light);
+            border-bottom-color: var(--text-light);
+        }
+
+        /* Skills Section */
+        .skills {
+            padding: 4rem 2rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .skills h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            letter-spacing: -0.5px;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-category {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .skill-category h3 {
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-light);
+        }
+
+        .skill-items {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .skill-item {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        /* Footer */
+        footer {
+            padding: 4rem 2rem 2rem;
+            text-align: center;
+            color: var(--text-light);
+            font-size: 13px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .footer-divider {
+            height: 1px;
+            background: var(--border);
+            margin: 2rem 0;
+        }
+
+        /* Badge */
+        .badge {
+            display: inline-block;
+            background: var(--bg-light);
+            padding: 0.4rem 0.8rem;
+            border-radius: 3px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1.5rem;
+                text-align: center;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .product-header {
+                flex-direction: column;
+            }
+
+            .product-features {
+                grid-template-columns: 1fr;
+            }
+
+            .product-links {
+                gap: 1.5rem;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            nav ul {
+                gap: 1.5rem;
+            }
+        }
+
+        /* Smooth transitions */
+        a, button {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Slight zoom on hover for links */
+        .link {
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <div class="logo">Bui Minh Toan</div>
+            <nav>
+                <ul>
+                    <li><a href="#about" class="nav-link active">About</a></li>
+                    <li><a href="#work" class="nav-link">Work</a></li>
+                    <li><a href="#skills" class="nav-link">Skills</a></li>
+                    <li><a href="#contact" class="nav-link">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Bui Minh Toan</h1>
+            <p class="tagline">Software Engineer specializing in high-quality, scalable systems. 3+ years building ticketing, e-commerce, and aviation platforms with strong performance, security, and clean architecture.</p>
+            <p class="subtitle">Ho Chi Minh City • buiminhtoan.cntt@gmail.com • 0334924824</p>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <h2>About</h2>
+            <div class="about-text">
+                <p>
+                    I'm a software engineer focused on <span class="accent-text">designing and implementing robust, scalable systems</span> that solve complex business problems. With 3+ years of professional experience, I've built production systems for ticketing platforms, e-commerce solutions, and aviation systems—each requiring meticulous attention to performance, security, and maintainability.
+                </p>
+                <p>
+                    My core strength lies in <span class="accent-text">translating business requirements into clean, extensible architectures</span>. I'm experienced with both microservices and monolithic patterns, capable of making informed architectural decisions based on project constraints. I own full-stack implementation of features, from backend API design to database optimization and frontend integration.
+                </p>
+                <p>
+                    Beyond coding, I'm passionate about <span class="accent-text">streamlining developer workflows</span>—whether through technical research, introducing process improvements, or documenting best practices that elevate team productivity. I thrive in collaborative environments and excel at bridging communication gaps between engineers, stakeholders, and international teams.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Work Section -->
+    <section class="products" id="work">
+        <div class="container">
+            <h2>Professional Experience</h2>
+            <div class="product-list">
+                <!-- Current Role -->
+                <div class="product-item">
+                    <div class="product-header">
+                        <div>
+                            <h3 class="product-title">Software Engineer</h3>
+                            <p class="product-year">April 2023 – Present</p>
+                        </div>
+                    </div>
+                    <p class="product-description">
+                        Full-stack engineer owning the implementation of key business features across company products. Responsible for end-to-end feature development, from design through deployment. Led technical initiatives to improve system performance and scalability.
+                    </p>
+                    <div class="product-features">
+                        <div class="feature">
+                            <span class="feature-dot"></span>
+                            <span>Feature ownership & implementation</span>
+                        </div>
+                        <div class="feature">
+                            <span class="feature-dot"></span>
+                            <span>Technical research & innovation</span>
+                        </div>
+                        <div class="feature">
+                            <span class="feature-dot"></span>
+                            <span>Developer experience improvements</span>
+                        </div>
+                        <div class="feature">
+                            <span class="feature-dot"></span>
+                            <span>Technical documentation</span>
+                        </div>
+                        <div class="feature">
+                            <span class="feature-dot"></span>
+                            <span>Best practices & standards</span>
+                        </div>
+                        <div class="feature">
+                            <span class="feature-dot"></span>
+                            <span>Cross-team collaboration</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Freelance Role -->
+                <div class="product-item">
+                    <div class="product-header">
+                        <div>
+                            <h3 class="product-title">Freelance Software Engineer</h3>
+                            <p class="product-year">April 2024 – Present</p>
+                        </div>
+                    </div>
+                    <p class="product-description">
+                        End-to-end technical consulting for early-stage companies. Deliver rapid MVP development, technical architecture design, and comprehensive code reviews. Act as a strategic technical advisor helping clients reduce development costs and accelerate time-to-market.
+                    </p>
+                    <div class="product-features">
+                        <div class="feature">
+                            <span class="feature-dot"></span>
+                            <span>MVP delivery under tight deadlines</span>
+                        </div>
+                        <div class="feature">
+                            <span class="feature-dot"></span>
+                            <span>Technical architecture & design</span>
+                        </div>
+                        <div class="feature">
+                            <span class="feature-dot"></span>
+                            <span>Clean, maintainable codebases</span>
+                        </div>
+                        <div class="feature">
+                            <span class="feature-dot"></span>
+                            <span>Stakeholder communication</span>
+                        </div>
+                        <div class="feature">
+                            <span class="feature-dot"></span>
+                            <span>Cross-team coordination</span>
+                        </div>
+                        <div class="feature">
+                            <span class="feature-dot"></span>
+                            <span>Cost optimization</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="products">
+        <div class="container">
+            <h2>Personal Projects</h2>
+            <div class="product-list">
+                <!-- DevTimeTracker -->
+                <div class="product-item">
+                    <div class="product-header">
+                        <div>
+                            <h3 class="product-title">DevTimeTracker</h3>
+                            <p class="product-year">2025 • Desktop Application</p>
+                        </div>
+                    </div>
+                    <p class="product-description">
+                        A professional desktop time tracker for developers and freelancers. Built with Python and PyQt6, it provides offline-first time tracking across multiple projects with zero cloud dependencies. All data persists locally, ensuring complete privacy and control.
+                    </p>
+                    <div class="product-features">
+                        <div class="feature">
+                            <span class="feature-dot"></span>
+                            <span>Multi-project tracking</span>
+                        </div>
+                        <div class="feature">
+                            <span class="feature-dot"></span>
+                            <span>Real-time dashboard</span>
+                        </div>
+                        <div class="feature">
+                            <span class="feature-dot"></span>
+                            <span>Session history & export</span>
+                        </div>
+                        <div class="feature">
+                            <span class="feature-dot"></span>
+                            <span>Crash recovery</span>
+                        </div>
+                        <div class="feature">
+                            <span class="feature-dot"></span>
+                            <span>100% offline</span>
+                        </div>
+                        <div class="feature">
+                            <span class="feature-dot"></span>
+                            <span>SQLite database</span>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="badge">Python</span>
+                        <span class="badge">PyQt6</span>
+                        <span class="badge">SQLite</span>
+                        <span class="badge">Desktop</span>
+                    </div>
+                    <div class="product-links" style="margin-top: 1.5rem;">
+                        <a href="https://github.com/toanbui-tech/DevTimeTracker" class="link link-secondary">View on GitHub</a>
+                        <a href="#download" class="link">Download for Windows</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="products" id="download">
+        <div class="container">
+            <h2>Getting Started</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 2rem; line-height: 1.8;">
+                DevTimeTracker is a standalone Windows executable. No Python installation or dependencies required. Simply download, extract, and run.
+            </p>
+            
+            <div style="background: var(--bg-light); padding: 2rem; border-radius: 6px; margin-bottom: 2rem;">
+                <h3 style="font-family: 'Playfair Display', serif; font-size: 1.2rem; margin-bottom: 1rem;">System Requirements</h3>
+                <ul style="list-style: none; color: var(--text-secondary); line-height: 1.9;">
+                    <li>• Windows 7, 8, 10, 11 or later</li>
+                    <li>• 50 MB available disk space</li>
+                    <li>• No internet connection required</li>
+                    <li>• All data stored locally on your machine</li>
+                </ul>
+            </div>
+
+            <div style="margin-bottom: 2rem;">
+                <button onclick="initiateDownload()" style="
+                    background: var(--text-primary);
+                    color: var(--bg);
+                    border: none;
+                    padding: 0.9rem 2rem;
+                    font-size: 14px;
+                    font-weight: 600;
+                    cursor: pointer;
+                    border-radius: 4px;
+                    transition: all 0.3s ease;
+                    font-family: 'Inter', sans-serif;
+                    letter-spacing: 0.3px;
+                ">
+                    ↓ Download DevTimeTracker.exe
+                </button>
+            </div>
+
+            <div style="background: var(--bg-light); padding: 2rem; border-radius: 6px; color: var(--text-secondary);">
+                <h3 style="font-family: 'Playfair Display', serif; font-size: 1.1rem; margin-bottom: 1rem; color: var(--text-primary);">How to use</h3>
+                <ol style="line-height: 1.9; padding-left: 1.5rem;">
+                    <li>Download the .exe file using the button above</li>
+                    <li>Double-click to run the application</li>
+                    <li>Create your first project or start tracking immediately</li>
+                    <li>All sessions and data are saved locally</li>
+                    <li>View your time tracking history in the Dashboard tab</li>
+                </ol>
+            </div>
+
+            <p style="margin-top: 2rem; color: var(--text-light); font-size: 13px;">
+                💡 First launch may take 5–10 seconds as Windows unpacks the executable. This is normal behavior. Windows Defender may display a warning—click "More info" then "Run anyway".
+            </p>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="skills" id="skills">
+        <div class="container">
+            <h2>Technical Stack</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3>Languages</h3>
+                    <div class="skill-items">
+                        <div class="skill-item">Python</div>
+                        <div class="skill-item">JavaScript / TypeScript</div>
+                        <div class="skill-item">Java</div>
+                        <div class="skill-item">SQL</div>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Backend</h3>
+                    <div class="skill-items">
+                        <div class="skill-item">FastAPI</div>
+                        <div class="skill-item">Spring Boot</div>
+                        <div class="skill-item">Node.js</div>
+                        <div class="skill-item">RESTful APIs</div>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Frontend</h3>
+                    <div class="skill-items">
+                        <div class="skill-item">React.js</div>
+                        <div class="skill-item">Vite.js</div>
+                        <div class="skill-item">JavaScript DOM</div>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Databases</h3>
+                    <div class="skill-items">
+                        <div class="skill-item">PostgreSQL</div>
+                        <div class="skill-item">Redis</div>
+                        <div class="skill-item">SQLite</div>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Architecture</h3>
+                    <div class="skill-items">
+                        <div class="skill-item">Microservices</div>
+                        <div class="skill-item">Monolithic</div>
+                        <div class="skill-item">Monorepo</div>
+                        <div class="skill-item">System Design</div>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Tools & Platforms</h3>
+                    <div class="skill-items">
+                        <div class="skill-item">Docker</div>
+                        <div class="skill-item">Git / GitHub / GitLab</div>
+                        <div class="skill-item">Cursor / Claude / GPT</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact / Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-links">
+                <a href="https://github.com/toanbui-tech" target="_blank">GitHub</a>
+                <a href="https://www.linkedin.com/in/toanbui-tech/" target="_blank">LinkedIn</a>
+                <a href="mailto:buiminhtoan.cntt@gmail.com">Email</a>
+            </div>
+            <div class="footer-divider"></div>
+            <p>&copy; 2025 Bui Minh Toan. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href !== '#' && document.querySelector(href)) {
+                    e.preventDefault();
+                    document.querySelector(href).scrollIntoView({ behavior: 'smooth' });
+                    updateActiveNav(href);
+                }
+            });
+        });
+
+        // Update active nav link
+        function updateActiveNav(targetId) {
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            document.querySelector(`a[href="${targetId}"]`).classList.add('active');
+        }
+
+        // Scroll-based nav highlighting
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section[id]');
+            let current = '';
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            if (current) {
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.classList.remove('active');
+                });
+                const activeLink = document.querySelector(`a[href="#${current}"]`);
+                if (activeLink) {
+                    activeLink.classList.add('active');
+                }
+            }
+        });
+
+        // Download handler
+        function initiateDownload() {
+            // Show instructions until file is hosted
+            alert('Setup Instructions:\n\n1. Upload your DevTimeTracker.exe to a hosting service\n2. Update the download URL in the code\n\nFor now, users can:\n• Download from GitHub Releases: github.com/toanbui-tech/DevTimeTracker\n• Or request directly from you\n\nOnce hosted, this button will download directly.');
+        }
+
+        // Add button hover effect
+        const downloadBtn = document.querySelector('button');
+        if (downloadBtn) {
+            downloadBtn.addEventListener('mouseover', function() {
+                this.style.opacity = '0.85';
+                this.style.transform = 'translateY(-1px)';
+            });
+            downloadBtn.addEventListener('mouseout', function() {
